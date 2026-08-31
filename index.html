@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Morpion Magique - Majeur Magique Production</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: radial-gradient(circle at center, #22223b, #0f0f1a);
+            color: #f2e9e4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            justify-content: center;
+            padding: 20px 15px;
+        }
+
+        /* En-tête / Titres */
+        .header-container {
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .subtitle-prod {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #9a8c98;
+            font-weight: 600;
+        }
+
+        .presents {
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            color: #c9ada7;
+            font-style: italic;
+            margin: 2px 0;
+        }
+
+        h1 {
+            font-size: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #f2e9e4;
+            text-shadow: 0 0 10px rgba(201, 173, 167, 0.4);
+        }
+
+        /* Lecteur audio personnalisé */
+        .audio-container {
+            margin: 10px 0 15px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .track-info {
+            font-size: 0.9rem;
+            color: #c9ada7;
+            font-style: italic;
+        }
+
+        .btn-audio {
+            background: #4a4e69;
+            color: #f2e9e4;
+            font-size: 0.85rem;
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid #9a8c98;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-audio:hover {
+            background: #9a8c98;
+            color: #22223b;
+            transform: scale(1.05);
+        }
+
+        /* Tableau des scores */
+        .scoreboard {
+            display: flex;
+            gap: 20px;
+            background: rgba(74, 78, 105, 0.4);
+            border: 1px solid #4a4e69;
+            padding: 8px 20px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .score-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .score-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #c9ada7;
+        }
+
+        .score-count {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #f2e9e4;
+        }
+
+        .status {
+            font-size: 1.15rem;
+            font-weight: bold;
+            margin-bottom: 12px;
+            min-height: 28px;
+            color: #9a8c98;
+        }
+
+        /* Grille de jeu */
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 110px);
+            grid-template-rows: repeat(3, 110px);
+            gap: 12px;
+            background: #4a4e69;
+            padding: 12px;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+        }
+
+        .cell {
+            background-color: #22223b;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .cell:hover {
+            background-color: #333552;
+            transform: scale(1.02);
+        }
+
+        .cell img {
+            max-width: 75%;
+            max-height: 75%;
+            object-fit: contain;
+            pointer-events: none;
+            animation: popIn 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Panneau de commandes */
+        .controls {
+            margin-top: 18px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        button.btn-game {
+            background: #9a8c98;
+            border: none;
+            color: #22223b;
+            font-weight: bold;
+            padding: 9px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+
+        button.btn-game:hover {
+            background: #f2e9e4;
+            transform: translateY(-2px);
+        }
+
+        select {
+            background: #22223b;
+            color: #f2e9e4;
+            border: 1px solid #9a8c98;
+            padding: 9px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        /* Liens Réseaux / Promotion */
+        .promo-links {
+            margin-top: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .promo-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: rgba(34, 34, 59, 0.9);
+            border: 1px solid #9a8c98;
+            color: #f2e9e4;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: bold;
+            padding: 8px 18px;
+            border-radius: 25px;
+            transition: all 0.2s ease;
+        }
+
+        .promo-btn:hover {
+            background: #f2e9e4;
+            color: #22223b;
+            border-color: #f2e9e4;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(201, 173, 167, 0.3);
+        }
+
+        .promo-links-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- En-tête -->
+    <div class="header-container">
+        <div class="subtitle-prod">Majeur Magique Production</div>
+        <div class="presents">présente</div>
+        <h1>Le Morpion Magique</h1>
+    </div>
+
+    <!-- Lecteur audio -->
+    <div class="audio-container">
+        <audio id="bgMusic" controls></audio>
+        <span class="track-info" id="trackInfo">🎵 En attente...</span>
+        <button class="btn-audio" onclick="playRandomTrack()">⏭️ Piste suivante</button>
+    </div>
+
+    <!-- Tableau des scores -->
+    <div class="scoreboard">
+        <div class="score-box">
+            <span class="score-label">Blanc</span>
+            <span class="score-count" id="scoreWhite">0</span>
+        </div>
+        <div class="score-box">
+            <span class="score-label">Nulle</span>
+            <span class="score-count" id="scoreDraw">0</span>
+        </div>
+        <div class="score-box">
+            <span class="score-label">Noir</span>
+            <span class="score-count" id="scoreBlack">0</span>
+        </div>
+    </div>
+
+    <div class="status" id="status">À toi de jouer (Majeur Blanc)</div>
+
+    <!-- Grille de morpion -->
+    <div class="board" id="board">
+        <div class="cell" data-index="0"></div>
+        <div class="cell" data-index="1"></div>
+        <div class="cell" data-index="2"></div>
+        <div class="cell" data-index="3"></div>
+        <div class="cell" data-index="4"></div>
+        <div class="cell" data-index="5"></div>
+        <div class="cell" data-index="6"></div>
+        <div class="cell" data-index="7"></div>
+        <div class="cell" data-index="8"></div>
+    </div>
+
+    <!-- Commandes -->
+    <div class="controls">
+        <button class="btn-game" onclick="resetGame()">Recommencer la partie</button>
+        <select id="gameMode" onchange="resetGame()">
+            <option value="pve">Joueur vs IA (Ordinateur)</option>
+            <option value="pvp">2 Joueurs (1 contre 1)</option>
+        </select>
+        <button class="btn-game" onclick="resetScore()">Réinitialiser scores</button>
+    </div>
+
+    <!-- Liens Promotionnels -->
+    <div class="promo-links">
+        <div class="promo-links-group">
+            <a href="https://open.spotify.com/intl-fr/artist/34x3q4Dm8ucUgCh6VZlEO9?si=OidttA_4TcmcO2bukYIYIg" target="_blank" rel="noopener noreferrer" class="promo-btn">
+                🎧 C.E.D.R.I.C. sur Spotify !
+            </a>
+            <a href="https://www.youtube.com/@cedricMMP/videos" target="_blank" rel="noopener noreferrer" class="promo-btn">
+                ▶️ C.E.D.R.I.C. sur Youtube !
+            </a>
+        </div>
+    </div>
+
+    <script>
+        /* ==========================================================
+           GESTION DE LA PLAYLIST ALÉATOIRE
+        ========================================================== */
+        const playlist = [
+            { title: "DUCK DANCE", src: "Duck Dance.mp3" },
+            { title: "Le Majeur Magique", src: "majeur.mp3" },
+            { title: "Leur exemple, leur héros", src: "exemple.mp3" },
+            { title: "Défrustration nocturne", src: "defrustr.mp3" },
+            { title: "Rien de plus qu'hier... pas moins", src: "rien2+.mp3" }
+        ];
+
+        let currentTrackIndex = -1;
+        const audioElement = document.getElementById("bgMusic");
+        const trackInfoElement = document.getElementById("trackInfo");
+
+        function playRandomTrack() {
+            let nextIndex;
+            if (playlist.length > 1) {
+                do {
+                    nextIndex = Math.floor(Math.random() * playlist.length);
+                } while (nextIndex === currentTrackIndex);
+            } else {
+                nextIndex = 0;
+            }
+
+            currentTrackIndex = nextIndex;
+            const currentTrack = playlist[currentTrackIndex];
+
+            audioElement.src = currentTrack.src;
+            trackInfoElement.textContent = `🎵 Lecture : ${currentTrack.title}`;
+            audioElement.play().catch(() => {
+                trackInfoElement.textContent = `🎵 Prêt : ${currentTrack.title} (clique sur lecture)`;
+            });
+        }
+
+        audioElement.addEventListener("ended", playRandomTrack);
+
+        window.addEventListener("click", () => {
+            if (audioElement.paused && currentTrackIndex === -1) {
+                playRandomTrack();
+            }
+        }, { once: true });
+
+        playRandomTrack();
+
+        /* ==========================================================
+           LOGIQUE DU MORPION & COMPTEUR DE SCORES
+        ========================================================== */
+        const IMG_WHITE = "logo-blanc.png";
+        const IMG_BLACK = "logo-noir.png";
+
+        let board = ["", "", "", "", "", "", "", "", ""];
+        let currentPlayer = "W";
+        let isGameActive = true;
+
+        let scores = {
+            white: 0,
+            draw: 0,
+            black: 0
+        };
+
+        const statusDisplay = document.getElementById("status");
+        const cells = document.querySelectorAll(".cell");
+        const modeSelect = document.getElementById("gameMode");
+
+        const scoreWhiteEl = document.getElementById("scoreWhite");
+        const scoreDrawEl = document.getElementById("scoreDraw");
+        const scoreBlackEl = document.getElementById("scoreBlack");
+
+        const winningConditions = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8],
+            [0, 3, 6], [1, 4, 7], [2, 5, 8],
+            [0, 4, 8], [2, 4, 6]
+        ];
+
+        function handleCellClick(e) {
+            const clickedCell = e.target;
+            const clickedIndex = parseInt(clickedCell.getAttribute("data-index"));
+
+            if (board[clickedIndex] !== "" || !isGameActive) return;
+
+            makeMove(clickedIndex, currentPlayer);
+
+            if (isGameActive && modeSelect.value === "pve" && currentPlayer === "B") {
+                setTimeout(botMove, 400);
+            }
+        }
+
+        function makeMove(index, player) {
+            board[index] = player;
+            const cell = document.querySelector(`[data-index='${index}']`);
+
+            const img = document.createElement("img");
+            img.src = player === "W" ? IMG_WHITE : IMG_BLACK;
+            img.alt = player === "W" ? "Majeur Blanc" : "Majeur Noir";
+            cell.appendChild(img);
+
+            checkResult();
+        }
+
+        function checkResult() {
+            let roundWon = false;
+            for (let i = 0; i < winningConditions.length; i++) {
+                const [a, b, c] = winningConditions[i];
+                if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+                    roundWon = true;
+                    break;
+                }
+            }
+
+            if (roundWon) {
+                if (currentPlayer === "W") {
+                    scores.white++;
+                    scoreWhiteEl.innerText = scores.white;
+                    statusDisplay.innerText = "🎉 Victoire du Majeur Blanc !";
+                } else {
+                    scores.black++;
+                    scoreBlackEl.innerText = scores.black;
+                    statusDisplay.innerText = "🎉 Victoire du Majeur Noir !";
+                }
+                isGameActive = false;
+                return;
+            }
+
+            if (!board.includes("")) {
+                scores.draw++;
+                scoreDrawEl.innerText = scores.draw;
+                statusDisplay.innerText = "🤝 Match nul !";
+                isGameActive = false;
+                return;
+            }
+
+            currentPlayer = currentPlayer === "W" ? "B" : "W";
+            const nextName = currentPlayer === "W" ? "Majeur Blanc" : "Majeur Noir";
+            statusDisplay.innerText = `Tour du ${nextName}`;
+        }
+
+        function botMove() {
+            if (!isGameActive) return;
+
+            let emptyIndices = [];
+            board.forEach((val, idx) => { if (val === "") emptyIndices.push(idx); });
+
+            // 1. Gagner si possible
+            for (let idx of emptyIndices) {
+                board[idx] = "B";
+                if (isWinning("B")) { makeMove(idx, "B"); return; }
+                board[idx] = "";
+            }
+
+            // 2. Bloquer le joueur
+            for (let idx of emptyIndices) {
+                board[idx] = "W";
+                if (isWinning("W")) {
+                    board[idx] = "";
+                    makeMove(idx, "B");
+                    return;
+                }
+                board[idx] = "";
+            }
+
+            // 3. Jouer le centre ou coup aléatoire
+            if (board[4] === "") {
+                makeMove(4, "B");
+            } else {
+                const randomIdx = emptyIndices[Math.floor(Math.random() * emptyIndices.length)];
+                makeMove(randomIdx, "B");
+            }
+        }
+
+        function isWinning(player) {
+            return winningConditions.some(combination => {
+                return combination.every(index => board[index] === player);
+            });
+        }
+
+        function resetGame() {
+            board = ["", "", "", "", "", "", "", "", ""];
+            currentPlayer = "W";
+            isGameActive = true;
+            statusDisplay.innerText = "À toi de jouer (Majeur Blanc)";
+            cells.forEach(cell => cell.innerHTML = "");
+        }
+
+        function resetScore() {
+            scores = { white: 0, draw: 0, black: 0 };
+            scoreWhiteEl.innerText = "0";
+            scoreDrawEl.innerText = "0";
+            scoreBlackEl.innerText = "0";
+            resetGame();
+        }
+
+        cells.forEach(cell => cell.addEventListener("click", handleCellClick));
+    </script>
+</body>
+</html>
