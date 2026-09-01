@@ -3,275 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Le Morpion Magique - Majeur Magique Production</title>
+    <title>Majeur Magique Production - Le Morpion Magique</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: radial-gradient(circle at center, #22223b, #0f0f1a);
-            color: #f2e9e4;
+            background-color: #0f111a;
+            color: #ffffff;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: flex-start;
             min-height: 100vh;
-            justify-content: center;
             padding: 20px 15px;
         }
 
-        /* En-tête / Titres */
-        .header-container {
+        header {
             text-align: center;
-            margin-bottom: 5px;
+            margin-bottom: 20px;
         }
 
-        .subtitle-prod {
-            font-size: 0.85rem;
+        h2.prod {
+            font-size: 1.1rem;
             text-transform: uppercase;
             letter-spacing: 3px;
             color: #9a8c98;
-            font-weight: 600;
+            margin-bottom: 5px;
         }
 
-        .presents {
-            font-size: 0.75rem;
-            letter-spacing: 2px;
-            color: #c9ada7;
-            font-style: italic;
-            margin: 2px 0;
-        }
-
-        h1 {
-            font-size: 2rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #f2e9e4;
-            text-shadow: 0 0 10px rgba(201, 173, 167, 0.4);
-        }
-
-        /* Lecteur audio personnalisé */
-        .audio-container {
-            margin: 10px 0 15px 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .track-info {
+        p.presente {
             font-size: 0.9rem;
             color: #c9ada7;
             font-style: italic;
+            margin-bottom: 5px;
         }
 
-        .btn-audio {
-            background: #4a4e69;
+        h1.titre {
+            font-size: 2rem;
             color: #f2e9e4;
-            font-size: 0.85rem;
-            padding: 6px 14px;
-            border-radius: 20px;
-            border: 1px solid #9a8c98;
-            cursor: pointer;
-            transition: all 0.2s ease;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
         }
 
-        .btn-audio:hover {
-            background: #9a8c98;
-            color: #22223b;
-            transform: scale(1.05);
+        /* Conteneur Spotify */
+        .spotify-container {
+            width: 100%;
+            max-width: 420px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+            border-radius: 12px;
+            overflow: hidden;
         }
 
-        /* Tableau des scores */
+        /* Tableau des Scores */
         .scoreboard {
             display: flex;
-            gap: 20px;
-            background: rgba(74, 78, 105, 0.4);
-            border: 1px solid #4a4e69;
-            padding: 8px 20px;
-            border-radius: 12px;
-            margin-bottom: 12px;
+            justify-content: center;
+            gap: 15px;
+            background: #1e1e2f;
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: 1px solid #3d3b54;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .score-item {
             text-align: center;
-        }
-
-        .score-box {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .score-label {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-size: 0.9rem;
             color: #c9ada7;
         }
 
-        .score-count {
+        .score-item span {
+            display: block;
             font-size: 1.3rem;
             font-weight: bold;
             color: #f2e9e4;
+            margin-top: 2px;
         }
 
+        /* Statut */
         .status {
-            font-size: 1.15rem;
-            font-weight: bold;
-            margin-bottom: 12px;
-            min-height: 28px;
-            color: #9a8c98;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+            color: #f2e9e4;
+            min-height: 1.5em;
+            text-align: center;
         }
 
         /* Grille de jeu */
         .board {
             display: grid;
-            grid-template-columns: repeat(3, 110px);
-            grid-template-rows: repeat(3, 110px);
-            gap: 12px;
-            background: #4a4e69;
-            padding: 12px;
-            border-radius: 16px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            grid-template-columns: repeat(3, 90px);
+            grid-template-rows: repeat(3, 90px);
+            gap: 10px;
+            background-color: #22223b;
+            padding: 10px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
         }
 
         .cell {
-            background-color: #22223b;
-            border-radius: 12px;
+            background-color: #4a4e69;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 2.8rem;
             cursor: pointer;
+            user-select: none;
             transition: all 0.2s ease;
-            position: relative;
         }
 
         .cell:hover {
-            background-color: #333552;
-            transform: scale(1.02);
+            background-color: #6c757d;
         }
 
-        .cell img {
-            max-width: 75%;
-            max-height: 75%;
-            object-fit: contain;
-            pointer-events: none;
-            animation: popIn 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        .cell.taken {
+            cursor: not-allowed;
         }
 
-        @keyframes popIn {
-            0% { transform: scale(0); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        /* Panneau de commandes */
-        .controls {
-            margin-top: 18px;
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        button.btn-game {
-            background: #9a8c98;
+        /* Bouton Recommencer */
+        .btn-reset {
+            background: #e63946;
+            color: white;
             border: none;
-            color: #22223b;
-            font-weight: bold;
-            padding: 9px 16px;
+            padding: 10px 20px;
             border-radius: 8px;
+            font-size: 1rem;
             cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 0.9rem;
+            font-weight: bold;
+            transition: background 0.2s ease;
+            margin-bottom: 30px;
         }
 
-        button.btn-game:hover {
-            background: #f2e9e4;
-            transform: translateY(-2px);
+        .btn-reset:hover {
+            background: #d62828;
         }
 
-        select {
-            background: #22223b;
-            color: #f2e9e4;
-            border: 1px solid #9a8c98;
-            padding: 9px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            outline: none;
-        }
-
-        /* Liens Réseaux / Promotion */
-        .promo-links {
-            margin-top: 25px;
+        /* Liens Réseaux */
+        .social-links {
             display: flex;
             flex-direction: column;
-            align-items: center;
             gap: 10px;
+            text-align: center;
+            width: 100%;
+            max-width: 320px;
         }
 
-        .promo-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            background: rgba(34, 34, 59, 0.9);
-            border: 1px solid #9a8c98;
-            color: #f2e9e4;
+        .social-btn {
+            display: block;
+            padding: 12px;
+            border-radius: 8px;
             text-decoration: none;
-            font-size: 0.9rem;
+            color: white;
             font-weight: bold;
-            padding: 8px 18px;
-            border-radius: 25px;
-            transition: all 0.2s ease;
+            font-size: 0.95rem;
+            transition: transform 0.2s ease, opacity 0.2s ease;
         }
 
-        .promo-btn:hover {
-            background: #f2e9e4;
-            color: #22223b;
-            border-color: #f2e9e4;
+        .social-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(201, 173, 167, 0.3);
+            opacity: 0.9;
         }
 
-        .promo-links-group {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            justify-content: center;
+        .btn-spotify {
+            background: #1DB954;
+        }
+
+        .btn-youtube {
+            background: #FF0000;
         }
     </style>
 </head>
 <body>
 
-    <!-- En-tête -->
-    <div class="header-container">
-        <div class="subtitle-prod">Majeur Magique Production</div>
-        <div class="presents">présente</div>
-        <h1>Le Morpion Magique</h1>
+    <header>
+        <h2 class="prod">Majeur Magique Production</h2>
+        <p class="presente">présente</p>
+        <h1 class="titre">LE MORPION MAGIQUE</h1>
+    </header>
+
+    <!-- Lecteur Playlist Spotify -->
+    <div class="spotify-container">
+        <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/5Ozukpsivz9kbx5VZIoyW2?utm_source=generator&si=77269b102d0946fe" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
     </div>
 
-    <!-- Lecteur audio -->
-    <div class="audio-container">
-        <audio id="bgMusic" controls></audio>
-        <span class="track-info" id="trackInfo">🎵 En attente...</span>
-        <button class="btn-audio" onclick="playRandomTrack()">⏭️ Piste suivante</button>
-    </div>
-
-    <!-- Tableau des scores -->
+    <!-- Tableau des Scores -->
     <div class="scoreboard">
-        <div class="score-box">
-            <span class="score-label">Blanc</span>
-            <span class="score-count" id="scoreWhite">0</span>
-        </div>
-        <div class="score-box">
-            <span class="score-label">Nulle</span>
-            <span class="score-count" id="scoreDraw">0</span>
-        </div>
-        <div class="score-box">
-            <span class="score-label">Noir</span>
-            <span class="score-count" id="scoreBlack">0</span>
-        </div>
+        <div class="score-item">Blanc (🖕🏻)<span id="scoreX">0</span></div>
+        <div class="score-item">Nulle<span id="scoreDraw">0</span></div>
+        <div class="score-item">Noir (🖕🏿)<span id="scoreO">0</span></div>
     </div>
 
     <div class="status" id="status">À toi de jouer (Majeur Blanc)</div>
 
-    <!-- Grille de morpion -->
+    <!-- Grille de jeu -->
     <div class="board" id="board">
         <div class="cell" data-index="0"></div>
         <div class="cell" data-index="1"></div>
@@ -284,97 +217,32 @@
         <div class="cell" data-index="8"></div>
     </div>
 
-    <!-- Commandes -->
-    <div class="controls">
-        <button class="btn-game" onclick="resetGame()">Recommencer la partie</button>
-        <select id="gameMode" onchange="resetGame()">
-            <option value="pve">Joueur vs IA (Ordinateur)</option>
-            <option value="pvp">2 Joueurs (1 contre 1)</option>
-        </select>
-        <button class="btn-game" onclick="resetScore()">Réinitialiser scores</button>
-    </div>
+    <button class="btn-reset" id="resetBtn">Recommencer la partie</button>
 
-    <!-- Liens Promotionnels -->
-    <div class="promo-links">
-        <div class="promo-links-group">
-            <a href="https://open.spotify.com/intl-fr/artist/34x3q4Dm8ucUgCh6VZlEO9?si=OidttA_4TcmcO2bukYIYIg" target="_blank" rel="noopener noreferrer" class="promo-btn">
-                🎧 C.E.D.R.I.C. sur Spotify !
-            </a>
-            <a href="https://www.youtube.com/@cedricMMP/videos" target="_blank" rel="noopener noreferrer" class="promo-btn">
-                ▶️ C.E.D.R.I.C. sur Youtube !
-            </a>
-        </div>
+    <!-- Liens Artiste -->
+    <div class="social-links">
+        <a href="https://open.spotify.com/intl-fr/artist/34x3q4Dm8ucUgCh6VZlEO9?si=OidttA_4TcmcO2bukYIYIg" target="_blank" rel="noopener noreferrer" class="social-btn btn-spotify">
+            C.E.D.R.I.C. sur Spotify !
+        </a>
+        <a href="https://www.youtube.com/@cedricMMP/videos" target="_blank" rel="noopener noreferrer" class="social-btn btn-youtube">
+            C.E.D.R.I.C. sur YouTube !
+        </a>
     </div>
 
     <script>
-        /* ==========================================================
-           GESTION DE LA PLAYLIST ALÉATOIRE
-        ========================================================== */
-        const playlist = [
-            { title: "DUCK DANCE", src: "Duck Dance.mp3" },
-            { title: "Le Majeur Magique", src: "majeur.mp3" },
-            { title: "Leur exemple, leur héros", src: "exemple.mp3" },
-            { title: "Défrustration nocturne", src: "defrustr.mp3" },
-            { title: "Rien de plus qu'hier... pas moins", src: "rien2+.mp3" }
-        ];
+        const board = document.getElementById('board');
+        const cells = document.querySelectorAll('.cell');
+        const statusText = document.getElementById('status');
+        const resetBtn = document.getElementById('resetBtn');
 
-        let currentTrackIndex = -1;
-        const audioElement = document.getElementById("bgMusic");
-        const trackInfoElement = document.getElementById("trackInfo");
+        const scoreXText = document.getElementById('scoreX');
+        const scoreOText = document.getElementById('scoreO');
+        const scoreDrawText = document.getElementById('scoreDraw');
 
-        function playRandomTrack() {
-            let nextIndex;
-            if (playlist.length > 1) {
-                do {
-                    nextIndex = Math.floor(Math.random() * playlist.length);
-                } while (nextIndex === currentTrackIndex);
-            } else {
-                nextIndex = 0;
-            }
-
-            currentTrackIndex = nextIndex;
-            const currentTrack = playlist[currentTrackIndex];
-
-            audioElement.src = currentTrack.src;
-            trackInfoElement.textContent = `🎵 Lecture : ${currentTrack.title}`;
-            audioElement.play().catch(() => {
-                trackInfoElement.textContent = `🎵 Prêt : ${currentTrack.title} (clique sur lecture)`;
-            });
-        }
-
-        audioElement.addEventListener("ended", playRandomTrack);
-
-        window.addEventListener("click", () => {
-            if (audioElement.paused && currentTrackIndex === -1) {
-                playRandomTrack();
-            }
-        }, { once: true });
-
-        playRandomTrack();
-
-        /* ==========================================================
-           LOGIQUE DU MORPION & COMPTEUR DE SCORES
-        ========================================================== */
-        const IMG_WHITE = "logo-blanc.png";
-        const IMG_BLACK = "logo-noir.png";
-
-        let board = ["", "", "", "", "", "", "", "", ""];
-        let currentPlayer = "W";
-        let isGameActive = true;
-
-        let scores = {
-            white: 0,
-            draw: 0,
-            black: 0
-        };
-
-        const statusDisplay = document.getElementById("status");
-        const cells = document.querySelectorAll(".cell");
-        const modeSelect = document.getElementById("gameMode");
-
-        const scoreWhiteEl = document.getElementById("scoreWhite");
-        const scoreDrawEl = document.getElementById("scoreDraw");
-        const scoreBlackEl = document.getElementById("scoreBlack");
+        let scores = { X: 0, O: 0, Draw: 0 };
+        let currentPlayer = "🖕🏻"; // Majeur Blanc (X)
+        let gameState = ["", "", "", "", "", "", "", "", ""];
+        let gameActive = true;
 
         const winningConditions = [
             [0, 1, 2], [3, 4, 5], [6, 7, 8],
@@ -384,122 +252,66 @@
 
         function handleCellClick(e) {
             const clickedCell = e.target;
-            const clickedIndex = parseInt(clickedCell.getAttribute("data-index"));
+            const clickedCellIndex = parseInt(clickedCell.getAttribute('data-index'));
 
-            if (board[clickedIndex] !== "" || !isGameActive) return;
+            if (gameState[clickedCellIndex] !== "" || !gameActive) return;
 
-            makeMove(clickedIndex, currentPlayer);
-
-            if (isGameActive && modeSelect.value === "pve" && currentPlayer === "B") {
-                setTimeout(botMove, 400);
-            }
-        }
-
-        function makeMove(index, player) {
-            board[index] = player;
-            const cell = document.querySelector(`[data-index='${index}']`);
-
-            const img = document.createElement("img");
-            img.src = player === "W" ? IMG_WHITE : IMG_BLACK;
-            img.alt = player === "W" ? "Majeur Blanc" : "Majeur Noir";
-            cell.appendChild(img);
+            gameState[clickedCellIndex] = currentPlayer;
+            clickedCell.textContent = currentPlayer;
+            clickedCell.classList.add('taken');
 
             checkResult();
         }
 
         function checkResult() {
             let roundWon = false;
+
             for (let i = 0; i < winningConditions.length; i++) {
                 const [a, b, c] = winningConditions[i];
-                if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+                if (gameState[a] && gameState[a] === gameState[b] && gameState[a] === gameState[c]) {
                     roundWon = true;
                     break;
                 }
             }
 
             if (roundWon) {
-                if (currentPlayer === "W") {
-                    scores.white++;
-                    scoreWhiteEl.innerText = scores.white;
-                    statusDisplay.innerText = "🎉 Victoire du Majeur Blanc !";
+                statusText.textContent = `Victoire du Majeur ${currentPlayer === "🖕🏻" ? "Blanc" : "Noir"} ! 🎉`;
+                if (currentPlayer === "🖕🏻") {
+                    scores.X++;
+                    scoreXText.textContent = scores.X;
                 } else {
-                    scores.black++;
-                    scoreBlackEl.innerText = scores.black;
-                    statusDisplay.innerText = "🎉 Victoire du Majeur Noir !";
+                    scores.O++;
+                    scoreOText.textContent = scores.O;
                 }
-                isGameActive = false;
+                gameActive = false;
                 return;
             }
 
-            if (!board.includes("")) {
-                scores.draw++;
-                scoreDrawEl.innerText = scores.draw;
-                statusDisplay.innerText = "🤝 Match nul !";
-                isGameActive = false;
+            if (!gameState.includes("")) {
+                statusText.textContent = "Match nul ! 🤝";
+                scores.Draw++;
+                scoreDrawText.textContent = scores.Draw;
+                gameActive = false;
                 return;
             }
 
-            currentPlayer = currentPlayer === "W" ? "B" : "W";
-            const nextName = currentPlayer === "W" ? "Majeur Blanc" : "Majeur Noir";
-            statusDisplay.innerText = `Tour du ${nextName}`;
-        }
-
-        function botMove() {
-            if (!isGameActive) return;
-
-            let emptyIndices = [];
-            board.forEach((val, idx) => { if (val === "") emptyIndices.push(idx); });
-
-            // 1. Gagner si possible
-            for (let idx of emptyIndices) {
-                board[idx] = "B";
-                if (isWinning("B")) { makeMove(idx, "B"); return; }
-                board[idx] = "";
-            }
-
-            // 2. Bloquer le joueur
-            for (let idx of emptyIndices) {
-                board[idx] = "W";
-                if (isWinning("W")) {
-                    board[idx] = "";
-                    makeMove(idx, "B");
-                    return;
-                }
-                board[idx] = "";
-            }
-
-            // 3. Jouer le centre ou coup aléatoire
-            if (board[4] === "") {
-                makeMove(4, "B");
-            } else {
-                const randomIdx = emptyIndices[Math.floor(Math.random() * emptyIndices.length)];
-                makeMove(randomIdx, "B");
-            }
-        }
-
-        function isWinning(player) {
-            return winningConditions.some(combination => {
-                return combination.every(index => board[index] === player);
-            });
+            currentPlayer = currentPlayer === "🖕🏻" ? "🖕🏿" : "🖕🏻";
+            statusText.textContent = `Au tour du Majeur ${currentPlayer === "🖕🏻" ? "Blanc" : "Noir"}`;
         }
 
         function resetGame() {
-            board = ["", "", "", "", "", "", "", "", ""];
-            currentPlayer = "W";
-            isGameActive = true;
-            statusDisplay.innerText = "À toi de jouer (Majeur Blanc)";
-            cells.forEach(cell => cell.innerHTML = "");
+            gameState = ["", "", "", "", "", "", "", "", ""];
+            gameActive = true;
+            currentPlayer = "🖕🏻";
+            statusText.textContent = "À toi de jouer (Majeur Blanc)";
+            cells.forEach(cell => {
+                cell.textContent = "";
+                cell.classList.remove('taken');
+            });
         }
 
-        function resetScore() {
-            scores = { white: 0, draw: 0, black: 0 };
-            scoreWhiteEl.innerText = "0";
-            scoreDrawEl.innerText = "0";
-            scoreBlackEl.innerText = "0";
-            resetGame();
-        }
-
-        cells.forEach(cell => cell.addEventListener("click", handleCellClick));
+        cells.forEach(cell => cell.addEventListener('click', handleCellClick));
+        resetBtn.addEventListener('click', resetGame);
     </script>
 </body>
 </html>
