@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Majeur Magique Production</title>
+    <!-- Police style écriture manuscrite / script -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #1f0edd;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .container {
+            max-width: 750px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Logo en haut */
+        .logo {
+            max-width: 220px;
+            height: auto;
+            margin-bottom: 25px;
+            filter: drop-shadow(0px 8px 16px rgba(0,0,0,0.3));
+        }
+
+        /* Titre Impact */
+        h1 {
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Textes en style script */
+        .script-text {
+            font-family: 'Caveat', 'Dancing Script', cursive;
+            font-size: clamp(1.4rem, 3.5vw, 2.1rem);
+            line-height: 1.4;
+            text-shadow: 1px 2px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .intro-text {
+            margin-bottom: 20px;
+        }
+
+        .divider {
+            margin: 25px 0 20px 0;
+        }
+
+        /* Liens & boutons */
+        .morpion-btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 24px;
+            background-color: #ffffff;
+            color: #1f0edd;
+            font-family: Impact, sans-serif;
+            text-decoration: none;
+            font-size: 1.3rem;
+            border-radius: 50px;
+            text-transform: uppercase;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+            transition: transform 0.2s, background-color 0.2s, color 0.2s;
+        }
+
+        .morpion-btn:hover {
+            transform: scale(1.06);
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        /* Liste des liens réseaux */
+        .social-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            width: 100%;
+        }
+
+        .social-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            border: 2px solid #ffffff;
+            padding: 10px 18px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(4px);
+            transition: all 0.25s ease;
+        }
+
+        .social-link:hover {
+            background-color: #ffffff;
+            color: #1f0edd;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            transform: translateY(-2px);
+        }
+
+        /* Lecteur caché */
+        audio {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Musique en fond (cachée) -->
+    <audio id="audioTrack" src="naissance.mp3" loop preload="auto"></audio>
+
+    <div class="container">
+        <!-- Logo mis à jour -->
+        <img src="logo-blancaccueil.png" alt="Majeur Magique Production Logo" class="logo">
+
+        <!-- Titre -->
+        <h1>Majeur Magique Production</h1>
+
+        <!-- Sous-titre script avec lien Morpion -->
+        <div class="script-text intro-text">
+            Site en construction.<br>
+            En attendant écoute quelques sons en jouant au morpion :<br>
+            <a href="morpion.html" class="morpion-btn">🕹️ Jouer au Morpion Magique</a>
+        </div>
+
+        <!-- Texte de transition -->
+        <div class="script-text divider">ou visite :</div>
+
+        <!-- Liens réseaux -->
+        <div class="social-links">
+            <a href="https://www.youtube.com/@cedricMMP" target="_blank" rel="noopener noreferrer" class="social-link">📺 La chaîne YouTube</a>
+            <a href="https://open.spotify.com/intl-fr/artist/34x3q4Dm8ucUgCh6VZlEO9?si=SbJMkvwjSWOgVOR5bGPS2g" target="_blank" rel="noopener noreferrer" class="social-link">🎧 Le Spotify</a>
+            <a href="https://www.facebook.com/MajeurMagiqueProduction/" target="_blank" rel="noopener noreferrer" class="social-link">🇫 La page Facebook</a>
+            <a href="https://www.instagram.com/c.e.d.r.i.c.mmp/" target="_blank" rel="noopener noreferrer" class="social-link">📸 L'Instagram</a>
+        </div>
+    </div>
+
+    <!-- Script pour le lancement automatique de la musique -->
+    <script>
+        const audio = document.getElementById('audioTrack');
+
+        window.addEventListener('DOMContentLoaded', () => {
+            audio.play().catch(() => {
+                const playOnInteraction = () => {
+                    audio.play();
+                    document.removeEventListener('click', playOnInteraction);
+                    document.removeEventListener('touchstart', playOnInteraction);
+                };
+                document.addEventListener('click', playOnInteraction);
+                document.addEventListener('touchstart', playOnInteraction);
+            });
+        });
+    </script>
+</body>
+</html>
