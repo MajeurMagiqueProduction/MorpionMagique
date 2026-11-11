@@ -3,153 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Majeur Magique Production</title>
-    <!-- Police style script / manuscrite -->
+    <title>Majeur Magique Production™ | Accueil</title>
+    <!-- Police Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap" rel="stylesheet">
-    
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            background-color: #1f0edd;
-            color: #ffffff;
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 30px 20px;
-            text-align: center;
-        }
-
-        /* Logo */
-        .logo-container {
-            margin-bottom: 25px;
-        }
-
-        .logo-container img {
-            max-width: 140px;
-            height: auto;
-            filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.3));
-        }
-
-        /* Titre en Impact gras */
-        h1.main-title {
-            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-            font-size: 2.8rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-        }
-
-        /* Sous-titre en style Script */
-        .subtitle {
-            font-family: 'Caveat', cursive, sans-serif;
-            font-size: 1.8rem;
-            max-width: 650px;
-            line-height: 1.4;
-            margin-bottom: 25px;
-        }
-
-        .subtitle a {
-            color: #ffffff;
-            text-decoration: underline;
-            font-weight: bold;
-            transition: opacity 0.2s;
-        }
-
-        .subtitle a:hover {
-            opacity: 0.8;
-        }
-
-        /* Section Visite & Liens Réseaux */
-        .visit-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-            width: 100%;
-            max-width: 320px;
-        }
-
-        .visit-title {
-            font-family: 'Caveat', cursive, sans-serif;
-            font-size: 1.8rem;
-            margin-bottom: 5px;
-        }
-
-        .social-link {
-            display: block;
-            width: 100%;
-            padding: 12px 20px;
-            background: rgba(0, 0, 0, 0.25);
-            color: #ffffff;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.05rem;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            transition: all 0.2s ease;
-        }
-
-        .social-link:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-        }
-
-        @media (max-width: 600px) {
-            h1.main-title {
-                font-size: 2.2rem;
-            }
-            .subtitle, .visit-title {
-                font-size: 1.5rem;
-            }
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Audio en lecture automatique caché -->
-    <audio id="bgAudio" src="naissance.mp3" autoplay loop></audio>
+    <!-- BANNIÈRE COMMUNE (50% ET CENTRÉE) -->
+    <header class="header-banner">
+        <a href="index.html">
+            <img src="BannièreFB.png" alt="Majeur Magique Production" class="banner-img">
+        </a>
+    </header>
 
-    <!-- Logo -->
-    <div class="logo-container">
-        <img src="logo-blanc.png" alt="Logo Majeur Magique">
-    </div>
+    <!-- MENU DE NAVIGATION -->
+    <nav class="main-nav">
+        <ul>
+            <li><a href="index.html" class="active">Accueil</a></li>
+            <li><a href="tarifs.html">Tarifs</a></li>
+            <li><a href="contacts.html">Contacts</a></li>
+            <li><a href="artistes.html">Artistes</a></li>
+        </ul>
+    </nav>
 
-    <!-- Titre -->
-    <h1 class="main-title">Majeur Magique Production</h1>
+    <!-- CONTENU PRINCIPAL -->
+    <main class="container">
 
-    <!-- Sous-titre avec liens vers les deux jeux -->
-    <p class="subtitle">
-        Site en construction. En attendant écoute quelques sons en jouant au <a href="morpion.html">morpion</a> ou au <a href="puissance4.html">jeu du 4 majeur</a>.
-    </p>
+        <!-- SECTION PRÉSENTATION -->
+        <section class="section-block">
+            <h1 class="page-title">Présentation de la Majeur Magique Production™ (mMp) :</h1>
+            
+            <p class="intro-text">
+                À l'heure de l'IA et des productions formatées par une industrie musicale en manque de courage créatif, <strong>mMp</strong> te propose un accompagnement dans ta création musicale.
+            </p>
+            
+            <p class="intro-text">
+                Artiste solo, groupe, débutant, ou non, MMP t'apporte toute son expérience en studio et/ou sur scène pour t'accompagner sans dénaturer ni formater ton projet musical. Car c'est <strong>TON</strong> projet.
+            </p>
 
-    <!-- Liens Réseaux Sociaux -->
-    <div class="visit-section">
-        <span class="visit-title">Ou visite :</span>
-        <a href="https://www.youtube.com/@cedricMMP" target="_blank" rel="noopener noreferrer" class="social-link">📺 La chaîne Youtube</a>
-        <a href="https://open.spotify.com/intl-fr/artist/34x3q4Dm8ucUgCh6VZlEO9?si=SbJMkvwjSWOgVOR5bGPS2g" target="_blank" rel="noopener noreferrer" class="social-link">🎧 Le Spotify</a>
-        <a href="https://www.facebook.com/MajeurMagiqueProduction/" target="_blank" rel="noopener noreferrer" class="social-link">📘 La page Facebook</a>
-        <a href="https://www.instagram.com/c.e.d.r.i.c.mmp/" target="_blank" rel="noopener noreferrer" class="social-link">📷 L'Instagram</a>
-    </div>
+            <p class="intro-text">
+                L'accompagnement se fera par des suggestions que tu seras le seul à valider. Et toutes tes propositions seront testées !
+            </p>
+        </section>
 
-    <script>
-        // Déblocage de l'autoplay si le navigateur bloque le son au premier clic
-        document.addEventListener('click', function() {
-            const audio = document.getElementById('bgAudio');
-            if (audio.paused) {
-                audio.play();
-            }
-        }, { once: true });
-    </script>
+        <!-- SECTION OFFRE / SERVICES -->
+        <section class="section-block offers-section">
+            <h2 class="offers-title">mMp te propose :</h2>
+
+            <div class="offer-item">
+                <p>
+                    <span class="offer-label">Le mixage de ton projet :</span>
+                    <span class="offer-desc">sous Cubase avec une bibliothèque de plugins qui balaye l'ensemble des effets et outils de mixage.</span>
+                </p>
+            </div>
+
+            <div class="offer-item">
+                <p>
+                    <span class="offer-label"><span class="tooltip-custom" title="D.A. / Réalisateur artistique">La production</span> de ton projet :</span>
+                    <span class="offer-desc">arrangements, ajouts de guitares (nylon, folk et électrique), de lignes de basse et du sound design avec l'ensemble des plugins Native Instrument, Iconica (pour les instruments d'orchestre symphonique).</span>
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- PIED DE PAGE -->
+    <footer>
+        <p>&copy; Majeur Magique Production™ - Tous droits réservés</p>
+    </footer>
+
 </body>
 </html>
