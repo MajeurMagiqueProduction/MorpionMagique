@@ -1,0 +1,408 @@
+
+/* ===================================================
+   VARIABLES & RESET GLOBAL
+   =================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #1a1a1a;
+    color: #f4f4f4;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* ===================================================
+   BANNIÈRE (RÉDUITE DE 50% ET CENTRÉE)
+   =================================================== */
+
+.header-banner {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: #1a1a1a;
+    padding: 20px 0 10px 0;
+}
+
+.header-banner a {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.banner-img {
+    width: 50%;              /* Réduit de moitié */
+    max-width: 820px;        /* 50% de la largeur native (1640px) */
+    height: auto;            /* Conserve le ratio d'aspect */
+    display: block;
+    margin: 0 auto;
+    border-radius: 4px;
+}
+
+/* ===================================================
+   NAVIGATION / MENU
+   =================================================== */
+
+.main-nav {
+    background-color: #121212;
+    border-bottom: 2px solid #e5a93c;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.main-nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    padding: 15px 20px;
+    margin: 0;
+}
+
+.main-nav a {
+    color: #f4f4f4;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.05rem;
+    text-transform: lowercase;
+    letter-spacing: 1px;
+    transition: color 0.2s ease;
+    padding: 6px 12px;
+}
+
+.main-nav a:hover,
+.main-nav a.active {
+    color: #e5a93c;
+}
+
+/* ===================================================
+   STRUCTURE GLOBALE & TYPOGRAPHIE
+   =================================================== */
+
+.container {
+    max-width: 960px;
+    width: 90%;
+    margin: 40px auto;
+    flex: 1; /* Pousse le footer vers le bas */
+}
+
+.page-title {
+    color: #e5a93c;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+
+/* Mots et éléments mis en valeur */
+.gold-text,
+.highlight {
+    color: #e5a93c;
+    font-weight: 600;
+}
+
+/* ===================================================
+   PAGE D'ACCUEIL (INDEX)
+   =================================================== */
+
+/* Espacement entre grands blocs de la page d'accueil */
+.section-block {
+    margin-bottom: 45px;
+}
+
+/* Paragraphes de présentation bien aérés */
+.intro-text {
+    font-size: 1.15rem;
+    line-height: 1.85;
+    margin-bottom: 22px; /* Saut de ligne entre paragraphes */
+    color: #f4f4f4;
+}
+
+.intro-text strong {
+    color: #e5a93c;
+}
+
+/* Titre "mMp te propose :" */
+.offers-title {
+    color: #e5a93c;
+    font-size: 1.9rem;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 6px;
+    margin-bottom: 35px; /* Espace sous le titre */
+}
+
+/* Blocs de propositions (Mixage / Production) */
+.offer-item {
+    margin-bottom: 28px; /* Saut de ligne entre chaque offre */
+    line-height: 1.85;
+}
+
+.offer-label {
+    color: #e5a93c;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    font-size: 1.15rem;
+    display: inline;
+    margin-right: 6px;
+}
+
+.offer-desc {
+    color: #f4f4f4;
+    font-size: 1.1rem;
+}
+
+/* Style de l'infobulle / tooltip */
+.tooltip-custom {
+    color: #e5a93c;
+    border-bottom: 1px dashed #e5a93c;
+    cursor: help;
+    font-weight: 600;
+    position: relative;
+}
+
+.tooltip-custom:hover::after {
+    content: "Dans l'esprit du terme 'producteur' issu de la tradition anglo-saxonne, c'est-à-dire le directeur artistique (D.A.), le réalisateur artistique qui oriente et accompagne le musicien tout au long de sa création.";
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #2a2a2a;
+    color: #f4f4f4;
+    padding: 12px 16px;
+    border-radius: 6px;
+    border: 1px solid #e5a93c;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    width: 280px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    z-index: 100;
+    font-weight: normal;
+}
+
+/* ===================================================
+   PAGE TARIFS
+   =================================================== */
+
+.tarifs-table-container {
+    margin: 25px 0;
+    overflow-x: auto;
+}
+
+.tarifs-table {
+    width: 100%;
+    max-width: 700px;
+    border-collapse: collapse;
+    background-color: #222222;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.tarifs-table th, 
+.tarifs-table td {
+    padding: 14px 20px;
+    text-align: left;
+    border-bottom: 1px solid #333333;
+}
+
+.tarifs-table th {
+    background-color: #121212;
+    color: #e5a93c;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+}
+
+.tarifs-table tr:last-child td {
+    border-bottom: none;
+}
+
+.tarifs-devis {
+    margin-top: 25px;
+    font-size: 1.1rem;
+}
+
+.tarifs-devis a {
+    color: #e5a93c;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+/* ===================================================
+   PAGE CONTACTS
+   =================================================== */
+
+.contact-section {
+    margin-top: 30px;
+}
+
+.contact-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 700px;
+}
+
+.contact-card {
+    background-color: #222222;
+    border-left: 4px solid #e5a93c;
+    padding: 20px 24px;
+    border-radius: 0 8px 8px 0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.contact-label {
+    color: #e5a93c;
+    font-weight: 700;
+    font-size: 1.15rem;
+    min-width: 90px;
+}
+
+.contact-link {
+    color: #f4f4f4;
+    font-size: 1.1rem;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    transition: color 0.2s ease, opacity 0.2s ease;
+    word-break: break-all;
+}
+
+.contact-link:hover {
+    color: #e5a93c;
+    opacity: 0.9;
+}
+
+/* ===================================================
+   PAGE ARTISTES
+   =================================================== */
+
+.artist-section {
+    margin-top: 30px;
+}
+
+.artist-card {
+    background-color: #222222;
+    border-left: 4px solid #e5a93c;
+    padding: 30px;
+    border-radius: 0 8px 8px 0;
+    max-width: 700px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.artist-name {
+    color: #e5a93c;
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+}
+
+.artist-links {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.artist-link-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.gold-label {
+    color: #e5a93c;
+    font-weight: 700;
+    font-size: 1.1rem;
+    min-width: 85px;
+}
+
+.artist-link {
+    color: #f4f4f4;
+    font-size: 1.05rem;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    transition: color 0.2s ease, opacity 0.2s ease;
+    word-break: break-all;
+}
+
+.artist-link:hover {
+    color: #e5a93c;
+    opacity: 0.9;
+}
+
+/* ===================================================
+   FOOTER (PIED DE PAGE)
+   =================================================== */
+
+footer {
+    background-color: #121212;
+    text-align: center;
+    padding: 20px;
+    font-size: 0.85rem;
+    color: #888888;
+    border-top: 1px solid #282828;
+    margin-top: 40px;
+}
+
+/* Couleur dorée forcée pour l'email */
+.gold-email,
+.gold-email:visited,
+.gold-email:link {
+    color: #e5a93c !important;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    font-weight: 600;
+}
+
+.gold-email:hover,
+.gold-email:focus {
+    color: #ffd074 !important; /* Devient un peu plus lumineux au survol */
+    opacity: 0.9;
+}
+/* ===================================================
+   RESPONSIVE (SMARTPHONES ET TABLETTES)
+   =================================================== */
+
+@media (max-width: 768px) {
+    .banner-img {
+        width: 85%; /* Plus large sur smartphone pour que les écritures restent nettes */
+    }
+
+    .main-nav ul {
+        flex-wrap: wrap;
+        gap: 12px;
+        padding: 12px 10px;
+    }
+
+    .main-nav a {
+        font-size: 0.95rem;
+        padding: 4px 8px;
+    }
+
+    .contact-card,
+    .artist-link-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+
+    .artist-card {
+        padding: 20px;
+    }
+}
+```
